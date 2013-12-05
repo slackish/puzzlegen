@@ -89,7 +89,6 @@ def trial(order, uniq):
     boards = gen_board()
     solution = parse_board(boards[1])
     numbers = [str(x) for x in range(1, 10)]
-    order = str(order)
 
     #for i in xrange(1,10):
     #    i = str(i)
@@ -97,16 +96,16 @@ def trial(order, uniq):
     #        return
 
     trials = 0
-    notsolved = True
+    solved = False
 
-    while notsolved and trials < 30:
+    while not solved and trials < 30:
         random.shuffle(uniq)
         random.shuffle(numbers)
         trans = string.maketrans("".join(uniq), "".join(numbers))
-        test = order.translate(trans)
-        notsolved = x_in_y(test, solution)
+        test = "".join(order).translate(trans)
+        solved = x_in_y(test, solution)
 
-    if notsolved:
+    if not solved:
         return
     else:
         trans = string.maketrans("".join(numbers), "".join(uniq))
@@ -131,6 +130,7 @@ def x_in_y(x, y):
             xcount += 1
             if xcount == xlen:
                 return True
+            continue
     return False
 
 
